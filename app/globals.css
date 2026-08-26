@@ -1,0 +1,1608 @@
+/* Tailwind فقط Reset و ابزارهای پایه Starter را آماده می‌کند؛ طراحی اصلی پایین نوشته شده است. */
+@import "tailwindcss";
+
+/* متغیرهای مرکزی، رنگ و اندازه‌ها را برای تغییر آینده در یک نقطه نگه می‌دارند. */
+:root {
+  --background: #f2f2f4;
+  --foreground: #17171a;
+  --muted: #77777e;
+  --line: #e7e7ea;
+  --surface: #ffffff;
+  --surface-soft: #f5f5f6;
+  --black-card: #0d0d0f;
+  --purple: #7514ff;
+  --pink: #ec078b;
+  --gradient: linear-gradient(100deg, var(--purple), var(--pink));
+  --shadow: 0 18px 46px rgba(24, 18, 38, 0.12);
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 26px;
+}
+
+/* این Theme به Tailwind می‌گوید متغیرهای اصلی چه نامی دارند. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: Tahoma, Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* محاسبه اندازه‌ی همه عناصر با Border و Padding قابل پیش‌بینی می‌شود. */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* اسکرول نرم بین ابتدای صفحه‌ها را فعال می‌کند. */
+html {
+  scroll-behavior: smooth;
+}
+
+/* بدنه‌ی سایت پس‌زمینه‌ی خنثی و فونت مناسب فارسی دارد. */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Tahoma, Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* دکمه و ورودی از همان فونت فارسی صفحه استفاده می‌کنند. */
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+/* دکمه‌ها به‌طور پیش‌فرض ظاهر مرورگر و قاب اضافه ندارند. */
+button {
+  border: 0;
+  cursor: pointer;
+}
+
+/* لینک‌ها و دکمه‌های غیرفعال رفتار قابل تشخیص دارند. */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+}
+
+/* کلاس دسترس‌پذیری متن را پنهان می‌کند اما برای صفحه‌خوان باقی می‌گذارد. */
+.sr-only {
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  clip: rect(0, 0, 0, 0);
+}
+
+/* پوسته‌ی بیرونی فضای امن موبایل و پس‌زمینه‌ی دسکتاپ را مدیریت می‌کند. */
+.repo-app {
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* لکه‌های نور فقط در نمایشگر بزرگ دیده می‌شوند و عمق بصری ایجاد می‌کنند. */
+.desktop-aura {
+  display: none;
+  filter: blur(90px);
+  opacity: 0.22;
+  pointer-events: none;
+  position: fixed;
+}
+
+/* پوسته‌ی اصلی در موبایل تمام عرض و در دسکتاپ مانند یک داشبورد مرکزی است. */
+.app-shell {
+  background: var(--background);
+  margin: 0 auto;
+  max-width: 480px;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* محتوا تا بالای نوار ثابت پایین ادامه پیدا نکند. */
+.app-content {
+  min-height: 100vh;
+  padding-bottom: 86px;
+}
+
+/* تمام صفحات داخلی حداقل ارتفاع دستگاه را پوشش می‌دهند. */
+.light-page,
+.dashboard-page {
+  min-height: calc(100vh - 86px);
+}
+
+/* صفحه‌های روشن همان خاکستری بسیار کمرنگ نمونه ویدیو را دارند. */
+.light-page {
+  background: #f0f0f2;
+  padding: 0 14px 28px;
+}
+
+/* Header صفحه امکانات سفید و چسبیده به بالاست. */
+.dashboard-header {
+  background: #fff;
+  padding: max(13px, env(safe-area-inset-top)) 16px 0;
+  position: relative;
+  z-index: 5;
+}
+
+/* ردیف اول Header لوگو و زنگ اعلان را دو سوی صفحه می‌گذارد. */
+.header-row {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  min-height: 42px;
+}
+
+/* لوگو از نشان، متن و نسخه تشکیل شده و خوانایی فشرده دارد. */
+.brand-logo {
+  align-items: center;
+  direction: ltr;
+  display: inline-flex;
+  gap: 7px;
+}
+
+/* نشان تیک با گرادیان هویت بصری Repo Time را می‌سازد. */
+.brand-mark {
+  align-items: center;
+  background: var(--gradient);
+  border-radius: 50%;
+  color: #fff;
+  display: inline-flex;
+  height: 24px;
+  justify-content: center;
+  width: 24px;
+}
+
+/* متن برند به‌صورت دو خط فشرده شبیه Header ویدیو است. */
+.brand-copy {
+  display: grid;
+  line-height: 1;
+}
+
+.brand-copy strong {
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: -0.5px;
+}
+
+.brand-copy small {
+  color: #7c7c82;
+  font-size: 6px;
+  letter-spacing: 0.7px;
+  margin-top: 3px;
+}
+
+/* برچسب نسخه با زمینه‌ی سبز تیره در کنار برند قرار می‌گیرد. */
+.version-pill {
+  background: #0b392a;
+  border-radius: 999px;
+  color: #67f1a3;
+  font-size: 7px;
+  font-weight: 800;
+  padding: 4px 7px;
+}
+
+/* دکمه‌ی آیکنی برای Header و کنترل‌های کوچک قاب شفاف دارد. */
+.icon-button {
+  align-items: center;
+  background: transparent;
+  color: inherit;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 38px;
+  min-width: 38px;
+  padding: 7px;
+}
+
+/* موقعیت نسبی برای نقطه‌ی وضعیت اعلان لازم است. */
+.notification-button {
+  position: relative;
+}
+
+/* نقطه‌ی سبز یعنی داده با سرور همگام شده است. */
+.sync-dot {
+  background: #14c77a;
+  border: 2px solid #fff;
+  border-radius: 50%;
+  height: 8px;
+  position: absolute;
+  right: 7px;
+  top: 5px;
+  width: 8px;
+}
+
+/* هنگام بارگذاری نقطه بین دو اندازه ضربان می‌زند. */
+.sync-dot.is-loading {
+  animation: pulse 1s ease-in-out infinite;
+  background: var(--pink);
+}
+
+/* انیمیشن کوتاه و کم‌حرکت برای وضعیت همگام‌سازی است. */
+@keyframes pulse {
+  50% { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* تب‌های بالای داشبورد چهار بخش اصلی را با فاصله مساوی نشان می‌دهند. */
+.top-tabs {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 8px;
+}
+
+/* هر تب فضای لمس کافی و خط پایه نامرئی دارد. */
+.top-tabs button {
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  color: #9b9ba2;
+  font-size: 11px;
+  padding: 11px 4px 9px;
+}
+
+/* تب فعال با متن تیره و خط مشکی مشخص می‌شود. */
+.top-tabs button.is-active {
+  border-color: #17171a;
+  color: #17171a;
+  font-weight: 800;
+}
+
+/* داشبورد فاصله و زمینه‌ی مستقل برای کارت‌ها دارد. */
+.dashboard-page {
+  background: #fff;
+}
+
+/* بنر اصلی با پس‌زمینه‌ی تیره و نور بنفش CTA را برجسته می‌کند. */
+.promo-banner {
+  align-items: center;
+  background:
+    radial-gradient(circle at 15% 40%, rgba(126, 18, 255, 0.8), transparent 27%),
+    linear-gradient(120deg, #141018, #070708 64%, #261035);
+  border-radius: 20px;
+  color: #fff;
+  display: grid;
+  gap: 11px;
+  grid-template-columns: 52px 1fr;
+  margin: 12px 14px 0;
+  min-height: 112px;
+  overflow: hidden;
+  padding: 17px;
+  position: relative;
+}
+
+/* دایره‌ی آیکن بنر نقش تصویر کاربردی را بدون فایل خارجی دارد. */
+.promo-art {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 17px;
+  color: #e6c5ff;
+  display: flex;
+  height: 52px;
+  justify-content: center;
+}
+
+.promo-banner small {
+  color: #cb9cff;
+  font-size: 9px;
+}
+
+.promo-banner h1 {
+  font-size: 15px;
+  margin: 4px 0 0;
+}
+
+.promo-banner p {
+  color: #bbb7c1;
+  font-size: 9px;
+  line-height: 1.7;
+  margin: 5px 0 0;
+}
+
+/* دکمه بنر در موبایل زیر متن و در دسکتاپ سمت چپ قرار می‌گیرد. */
+.promo-banner > button {
+  background: var(--gradient);
+  border-radius: 999px;
+  bottom: 12px;
+  color: #fff;
+  font-size: 9px;
+  left: 13px;
+  padding: 7px 13px;
+  position: absolute;
+}
+
+/* کارت مالک بین بنر و امکانات، پروفایل جاری را نشان می‌دهد. */
+.owner-card {
+  align-items: center;
+  background: #f0f0f1;
+  border-radius: 18px;
+  display: flex;
+  justify-content: space-between;
+  margin: 8px 14px 0;
+  padding: 9px 12px;
+}
+
+.owner-identity {
+  align-items: center;
+  display: flex;
+  gap: 9px;
+}
+
+.owner-identity > div {
+  display: grid;
+  gap: 3px;
+}
+
+.owner-identity strong {
+  font-size: 12px;
+}
+
+.owner-identity span {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.owner-card > button {
+  align-items: center;
+  background: #dedee1;
+  border-radius: 999px;
+  color: #55555c;
+  display: flex;
+  font-size: 9px;
+  gap: 5px;
+  padding: 8px 11px;
+}
+
+/* برد امکانات زمینه مشکی و شبکه‌ی دو ستونه‌ی ویدیو را بازسازی می‌کند. */
+.feature-board {
+  background:
+    radial-gradient(circle at 50% 8%, rgba(108, 25, 160, 0.18), transparent 28%),
+    #030304;
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 10px;
+  padding: 12px 12px 28px;
+}
+
+/* هر کارت امکانات سطح تیره، گوشه گرد و Accent مستقل دارد. */
+.feature-card {
+  align-items: center;
+  background: linear-gradient(145deg, #171719, #0b0b0d);
+  border: 1px solid #202024;
+  border-radius: 16px;
+  color: #fff;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 33px 1fr auto;
+  min-height: 70px;
+  overflow: hidden;
+  padding: 10px 11px;
+  position: relative;
+  text-align: right;
+  transition: border-color 180ms ease, transform 180ms ease;
+}
+
+/* حرکت بسیار کوتاه لمس کارت را ملموس می‌کند. */
+.feature-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 55%, #202024);
+  transform: translateY(-1px);
+}
+
+/* کارت‌های نموداری تمام عرض شبکه را می‌گیرند. */
+.feature-card.is-wide {
+  grid-column: 1 / -1;
+  grid-template-columns: 33px minmax(100px, 0.8fr) minmax(100px, 1.4fr) auto;
+}
+
+/* قاب آیکن رنگ Accent همان قابلیت را مصرف می‌کند. */
+.feature-icon {
+  align-items: center;
+  background: color-mix(in srgb, var(--accent) 14%, #101012);
+  border-radius: 11px;
+  color: var(--accent);
+  display: flex;
+  height: 34px;
+  justify-content: center;
+  width: 34px;
+}
+
+.feature-title {
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.25;
+}
+
+/* عدد مشتری یا نوبت زیر عنوان دیده می‌شود. */
+.feature-metric {
+  bottom: 7px;
+  color: var(--accent);
+  font-size: 18px;
+  font-weight: 700;
+  position: absolute;
+  right: 53px;
+}
+
+.feature-arrow {
+  color: #58585f;
+}
+
+/* NEW و PRO روی گوشه کارت مانند نمونه مرجع قرار می‌گیرند. */
+.feature-badge {
+  background: var(--gradient);
+  border-radius: 0 0 7px 7px;
+  font-size: 6px;
+  left: 11px;
+  padding: 3px 6px;
+  position: absolute;
+  top: 0;
+}
+
+/* نمودار کارت عریض ارتفاع محدودی دارد تا محتوا فشرده بماند. */
+.mini-trend {
+  height: 34px;
+  max-width: 170px;
+  width: 100%;
+}
+
+/* Header صفحه داخلی زیر Safe Area و بالای محتوای خاکستری می‌ماند. */
+.page-header {
+  align-items: center;
+  display: grid;
+  grid-template-columns: 42px 1fr 88px;
+  min-height: 57px;
+  padding-top: max(4px, env(safe-area-inset-top));
+}
+
+/* چون جهت صفحه RTL است، آیکن بازگشت برای حرکت چپ می‌چرخد. */
+.page-header > .icon-button:first-child svg {
+  transform: rotate(180deg);
+}
+
+.page-header h1 {
+  font-size: 14px;
+  font-weight: 800;
+  margin: 0;
+  text-align: center;
+}
+
+.page-header-action {
+  align-items: center;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.header-text-button {
+  background: transparent;
+  color: var(--purple);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 8px;
+}
+
+/* کنترل دوحالته بالای تقویم ویدیو در یک Capsule خاکستری است. */
+.segmented-control {
+  background: #dedee1;
+  border-radius: 999px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 auto 11px;
+  max-width: 300px;
+  padding: 3px;
+}
+
+.segmented-control button {
+  background: transparent;
+  border-radius: 999px;
+  color: #77777e;
+  font-size: 10px;
+  padding: 7px;
+}
+
+.segmented-control button.is-active {
+  background: #fff;
+  box-shadow: 0 3px 10px rgba(20, 20, 23, 0.08);
+  color: #161619;
+  font-weight: 800;
+}
+
+/* چهار میانبر تقویم در یک ردیف قرار می‌گیرند. */
+.quick-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.quick-button {
+  align-items: center;
+  background: #dedee0;
+  border-radius: 13px;
+  color: #242429;
+  display: flex;
+  flex-direction: column;
+  font-size: 8px;
+  gap: 5px;
+  min-height: 60px;
+  padding: 8px 4px;
+}
+
+.quick-button span {
+  align-items: center;
+  background: #eeeef0;
+  border-radius: 9px;
+  display: flex;
+  height: 29px;
+  justify-content: center;
+  width: 29px;
+}
+
+/* کارت ماه تقویم جدول روزها را روی زمینه سفید نگه می‌دارد. */
+.month-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  margin-top: 10px;
+  padding: 14px;
+}
+
+.month-title {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.month-title > div {
+  display: grid;
+  gap: 4px;
+}
+
+.month-title strong {
+  font-size: 12px;
+}
+
+.month-title span,
+.calendar-legend {
+  color: var(--muted);
+  font-size: 8px;
+}
+
+.calendar-legend i {
+  background: var(--pink);
+  border-radius: 50%;
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+}
+
+/* عنوان روزهای هفته و روزهای ماه هر کدام هفت ستون دارند. */
+.week-labels,
+.month-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.week-labels {
+  color: #a0a0a7;
+  font-size: 9px;
+  margin-top: 14px;
+  text-align: center;
+}
+
+.month-days {
+  gap: 4px;
+  margin-top: 5px;
+}
+
+.month-days button {
+  aspect-ratio: 1;
+  background: #f3f3f5;
+  border-radius: 9px;
+  color: #4d4d53;
+  font-size: 10px;
+  position: relative;
+}
+
+.month-days button:disabled {
+  background: transparent;
+}
+
+/* روز دارای نوبت با نقطه‌ی پایین مشخص می‌شود. */
+.month-days button.has-event::after {
+  background: var(--purple);
+  border-radius: 50%;
+  bottom: 3px;
+  content: "";
+  height: 4px;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+  width: 4px;
+}
+
+/* روز انتخابی گرادیان اصلی و متن سفید دارد. */
+.month-days button.is-selected {
+  background: var(--gradient);
+  box-shadow: 0 7px 16px rgba(117, 20, 255, 0.25);
+  color: #fff;
+  font-weight: 900;
+}
+
+.month-days button.is-selected::after {
+  background: #fff;
+}
+
+/* خلاصه روز به سبک کارت سیاه-گرادیانی ویدیو طراحی شده است. */
+.day-summary {
+  align-items: center;
+  background: linear-gradient(102deg, #0b0b0d, #0a0610 62%, #4a0075);
+  border-radius: 17px;
+  color: #fff;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 58px 1fr 1.2fr;
+  margin-top: 10px;
+  overflow: hidden;
+  padding: 11px;
+  position: relative;
+}
+
+.day-summary > div {
+  display: grid;
+  gap: 3px;
+}
+
+.day-summary strong {
+  font-size: 13px;
+}
+
+.day-summary span {
+  color: #a7a4ad;
+  font-size: 8px;
+}
+
+.day-number {
+  border-left: 1px solid #303035;
+  color: #fff;
+  text-align: center;
+}
+
+.day-number span {
+  color: #fff;
+  font-size: 23px;
+  font-weight: 900;
+}
+
+.day-summary > button {
+  align-items: center;
+  background: transparent;
+  bottom: 5px;
+  color: #da9eff;
+  display: flex;
+  font-size: 8px;
+  gap: 4px;
+  left: 8px;
+  position: absolute;
+}
+
+/* فاصله کارت‌های نوبت از خلاصه روز را تعیین می‌کند. */
+.appointment-list {
+  display: grid;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+/* کارت نوبت چهار بخش زمان، فرد، مبلغ و فلش دارد. */
+.appointment-card {
+  align-items: center;
+  background: #fff;
+  border-radius: 14px;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 66px 1fr auto 24px;
+  min-height: 62px;
+  overflow: hidden;
+  padding: 9px;
+  position: relative;
+}
+
+/* خط سمت راست وضعیت نوبت را با رنگ نشان می‌دهد. */
+.appointment-card::before {
+  background: #6c16ff;
+  bottom: 0;
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 5px;
+}
+
+.appointment-card.status-pending::before { background: var(--pink); }
+.appointment-card.status-done::before { background: #15bb79; }
+.appointment-card.status-cancelled::before { background: #8a8a90; }
+
+.appointment-time,
+.appointment-person,
+.appointment-price {
+  display: grid;
+  gap: 3px;
+}
+
+.appointment-time strong { font-size: 16px; }
+.appointment-person strong { font-size: 11px; }
+.appointment-price strong { font-size: 10px; }
+.appointment-card span { color: var(--muted); font-size: 8px; }
+.appointment-card > button { background: transparent; color: #9b9ba1; padding: 3px; }
+
+/* تب‌های مشتریان چهار اقدام را در عرض صفحه جای می‌دهند. */
+.customer-tabs {
+  background: #fff;
+  border-radius: 15px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-bottom: 9px;
+  overflow: hidden;
+}
+
+.customer-tabs button {
+  align-items: center;
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  color: #6d6d73;
+  display: flex;
+  flex-direction: column;
+  font-size: 8px;
+  gap: 4px;
+  padding: 10px 2px 8px;
+}
+
+.customer-tabs button.is-active {
+  border-color: var(--purple);
+  color: #1e1e22;
+  font-weight: 800;
+}
+
+/* کارت آمار مشتری زمینه سفید و نمودار میله‌ای فشرده دارد. */
+.customer-overview {
+  background: #fff;
+  border-radius: var(--radius-md);
+  padding: 15px;
+}
+
+.overview-head {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+}
+
+.overview-head span { font-size: 10px; }
+.overview-head strong { color: var(--purple); font-size: 20px; }
+
+.age-chart {
+  align-items: end;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(6, 1fr);
+  height: 120px;
+  margin-top: 13px;
+}
+
+.age-chart > div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.age-chart span {
+  background: #e3d4f8;
+  border-radius: 999px 999px 5px 5px;
+  min-height: 13px;
+  width: 14px;
+}
+
+.age-chart span.is-active { background: var(--purple); }
+.age-chart small { color: var(--muted); font-size: 7px; margin-top: 5px; }
+
+/* Chipها فیلتر گروه مشتری را قابل لمس و جمع‌وجور می‌کنند. */
+.filter-chips {
+  display: flex;
+  gap: 6px;
+  margin: 9px 0;
+  overflow-x: auto;
+  padding-bottom: 2px;
+  scrollbar-width: none;
+}
+
+.filter-chips::-webkit-scrollbar { display: none; }
+
+.filter-chips button {
+  background: #fff;
+  border-radius: 999px;
+  color: #74747b;
+  flex: 0 0 auto;
+  font-size: 8px;
+  padding: 8px 11px;
+}
+
+.filter-chips button.is-active { background: #17171a; color: #fff; }
+
+/* فهرست مشتری و نتایج جست‌وجو از کارت‌های سفید هم‌اندازه تشکیل می‌شوند. */
+.customer-list,
+.stack-list,
+.service-list,
+.review-list,
+.message-history,
+.transaction-list {
+  display: grid;
+  gap: 7px;
+}
+
+.customer-row {
+  align-items: center;
+  background: #fff;
+  border-radius: 13px;
+  color: #202024;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 40px 1fr 22px;
+  padding: 9px 10px;
+  text-align: right;
+}
+
+.customer-row > span:nth-child(2) {
+  display: grid;
+  gap: 4px;
+}
+
+.customer-row strong { font-size: 10px; }
+.customer-row small { color: var(--muted); font-size: 8px; }
+.customer-row > svg { color: #aaaab0; }
+
+/* Avatar گرادیانی حرف اول فرد را نمایش می‌دهد. */
+.avatar {
+  align-items: center;
+  background: linear-gradient(145deg, #241831, #8c24e4);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 3px 9px rgba(64, 20, 92, 0.2);
+  color: #fff !important;
+  display: inline-flex !important;
+  flex: 0 0 auto;
+  font-size: 15px !important;
+  font-weight: 900;
+  height: 38px;
+  justify-content: center;
+  width: 38px;
+}
+
+.avatar.is-large {
+  font-size: 25px !important;
+  height: 72px;
+  width: 72px;
+}
+
+/* پنل سفید عمومی برای اطلاعات گروه‌بندی‌شده استفاده می‌شود. */
+.white-panel {
+  background: #fff;
+  border-radius: var(--radius-md);
+  margin-top: 9px;
+  padding: 14px;
+}
+
+/* عنوان پنل آیکن رنگی و دو خط متن دارد. */
+.panel-title {
+  align-items: center;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 38px 1fr;
+  margin-bottom: 10px;
+}
+
+.panel-title > span {
+  align-items: center;
+  background: #efe2ff;
+  border-radius: 11px;
+  color: var(--purple);
+  display: flex;
+  height: 38px;
+  justify-content: center;
+}
+
+.panel-title > div { display: grid; gap: 4px; }
+.panel-title strong { font-size: 10px; }
+.panel-title small { color: var(--muted); font-size: 8px; }
+
+/* حلقه‌ی آماری با Border ضخیم درصد را برجسته می‌کند. */
+.ring-stat {
+  align-items: center;
+  border: 7px solid #7b19ff;
+  border-left-color: #dec5ff;
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  height: 112px;
+  justify-content: center;
+  margin: 16px auto;
+  width: 112px;
+}
+
+.ring-stat strong { font-size: 22px; }
+.ring-stat span { color: var(--muted); font-size: 8px; }
+
+/* ردیف اطلاعات عنوان را راست و مقدار را چپ قرار می‌دهد. */
+.info-row {
+  align-items: center;
+  border-top: 1px solid var(--line);
+  display: flex;
+  gap: 14px;
+  justify-content: space-between;
+  min-height: 42px;
+}
+
+.info-row span { color: var(--muted); font-size: 9px; }
+.info-row strong { font-size: 9px; font-weight: 800; text-align: left; }
+
+/* Action Row کارت قابل کلیک برای مدیریت و گزارش است. */
+.action-row {
+  align-items: center;
+  background: #fff;
+  border-radius: 13px;
+  color: #222226;
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 40px 1fr auto 20px;
+  padding: 11px;
+  text-align: right;
+}
+
+.action-row > span {
+  align-items: center;
+  background: #eee4ff;
+  border-radius: 11px;
+  color: var(--purple);
+  display: flex;
+  height: 40px;
+  justify-content: center;
+}
+
+.action-row > div { display: grid; gap: 4px; }
+.action-row strong { font-size: 10px; }
+.action-row small { color: var(--muted); font-size: 8px; }
+.action-row em { background: #ffd8eb; border-radius: 999px; color: #d20066; font-size: 7px; font-style: normal; padding: 4px 7px; }
+.action-row > svg { color: #aaaab0; }
+
+/* پرونده مشتری با Hero، سه آمار و جزئیات سفید ساخته می‌شود. */
+.profile-hero-card,
+.profile-title-card {
+  align-items: center;
+  background: #fff;
+  border-radius: var(--radius-md);
+  display: flex;
+  gap: 13px;
+  padding: 15px;
+}
+
+.profile-hero-card h2 { font-size: 17px; margin: 0 0 6px; }
+.profile-hero-card p { color: var(--muted); font-size: 10px; margin: 0; }
+
+.profile-stat-grid {
+  display: grid;
+  gap: 7px;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 8px;
+}
+
+.profile-stat-grid div {
+  background: #fff;
+  border-radius: 13px;
+  display: grid;
+  gap: 5px;
+  padding: 13px 7px;
+  text-align: center;
+}
+
+.profile-stat-grid strong { color: var(--purple); font-size: 13px; }
+.profile-stat-grid span { color: var(--muted); font-size: 7px; }
+.profile-details { margin-top: 8px; }
+
+/* دو دکمه پرونده در یک ردیف مساوی قرار دارند. */
+.dual-actions,
+.form-actions {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+  margin-top: 9px;
+}
+
+.dark-button {
+  align-items: center;
+  background: #0b0b0d;
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  font-size: 9px;
+  gap: 7px;
+  justify-content: center;
+  min-height: 43px;
+}
+
+/* تب‌های خطی پیامک و رضایت‌سنجی با خط گرادیانی فعال می‌شوند. */
+.underlined-tabs {
+  background: #fff;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  margin: 0 -14px 9px;
+}
+
+.underlined-tabs button {
+  background: transparent;
+  border-bottom: 3px solid transparent;
+  color: #898990;
+  font-size: 10px;
+  padding: 12px;
+}
+
+.underlined-tabs button.is-active { border-color: var(--pink); color: #202024; font-weight: 800; }
+
+/* دو روش ارسال پیام به شکل کارت‌های انتخابی نمایش داده می‌شوند. */
+.message-type-grid {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.message-type-grid button {
+  align-items: center;
+  background: #fff;
+  border: 2px solid transparent;
+  border-radius: 15px;
+  color: #3e3e44;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 92px;
+  padding: 12px;
+}
+
+.message-type-grid button.is-active { border-color: #b820ff; color: var(--purple); }
+.message-type-grid strong { font-size: 10px; }
+.message-type-grid span { color: var(--muted); font-size: 7px; }
+
+/* کارت نوشتن پیام و کارت محاسبه از سطح سفید مشترک استفاده می‌کنند. */
+.composer-card,
+.calculator-card,
+.rules-card {
+  background: #fff;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  padding: 13px;
+}
+
+.audience-row {
+  align-items: center;
+  background: #f3e8ff;
+  border-radius: 10px;
+  color: #6520a1;
+  display: flex;
+  font-size: 9px;
+  justify-content: space-between;
+  padding: 9px;
+}
+
+.field-label {
+  color: #696970;
+  display: block;
+  font-size: 9px;
+  margin: 12px 0 6px;
+}
+
+/* Textarea پیام حداقل ارتفاع لازم برای چند خط را دارد. */
+.composer-card textarea,
+.form-field textarea,
+.tool-form-card textarea {
+  min-height: 98px;
+  resize: vertical;
+}
+
+.composer-card textarea,
+.form-field input,
+.form-field select,
+.form-field textarea,
+.search-box input,
+.tool-form-card input,
+.tool-form-card select,
+.tool-form-card textarea {
+  background: #f5f5f6;
+  border: 1px solid #e5e5e8;
+  border-radius: 11px;
+  color: #1d1d21;
+  outline: none;
+  padding: 11px;
+  width: 100%;
+}
+
+.composer-card textarea:focus,
+.form-field input:focus,
+.form-field select:focus,
+.form-field textarea:focus,
+.search-box input:focus,
+.tool-form-card input:focus,
+.tool-form-card select:focus,
+.tool-form-card textarea:focus {
+  border-color: #a447ff;
+  box-shadow: 0 0 0 3px rgba(117, 20, 255, 0.09);
+}
+
+.ready-message {
+  align-items: center;
+  background: #eeeeef;
+  border-radius: 999px;
+  color: #55555b;
+  display: flex;
+  font-size: 8px;
+  gap: 6px;
+  margin-top: 7px;
+  padding: 7px 10px;
+}
+
+.counter-row {
+  color: #7b7b82;
+  display: flex;
+  font-size: 8px;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.calculator-card h3,
+.rules-card h3 { font-size: 10px; margin: 0 0 8px; }
+
+.range-label { color: var(--muted); display: grid; font-size: 8px; gap: 7px; margin: 9px 0; }
+.range-label input { accent-color: var(--purple); width: 100%; }
+
+.balance-pill {
+  background: #e7fff4;
+  border: 1px solid #a8ebcd;
+  border-radius: 999px;
+  color: #168157;
+  font-size: 8px;
+  margin-top: 8px;
+  padding: 7px 10px;
+  text-align: center;
+}
+
+.rules-card p { color: #6e6e75; font-size: 8px; line-height: 1.8; margin: 5px 0; padding-right: 11px; position: relative; }
+.rules-card p::before { background: #1c1c20; border-radius: 50%; content: ""; height: 4px; position: absolute; right: 0; top: 7px; width: 4px; }
+
+/* دکمه اصلی از گرادیان برند و ارتفاع لمس مناسب استفاده می‌کند. */
+.gradient-button {
+  align-items: center;
+  background: var(--gradient);
+  border-radius: 12px;
+  color: #fff;
+  display: flex;
+  font-size: 10px;
+  font-weight: 800;
+  gap: 7px;
+  justify-content: center;
+  min-height: 45px;
+  padding: 10px 16px;
+  width: 100%;
+}
+
+.sticky-action { margin-top: 11px; }
+
+/* تاریخچه پیام کارت سفید با نقطه وضعیت دارد. */
+.message-history article {
+  align-items: center;
+  background: #fff;
+  border-radius: 13px;
+  display: grid;
+  gap: 9px;
+  grid-template-columns: 8px 1fr auto;
+  padding: 12px;
+}
+
+.message-history article > div { display: grid; gap: 5px; }
+.message-history strong { font-size: 9px; line-height: 1.7; }
+.message-history small, .message-history article > span:last-child { color: var(--muted); font-size: 8px; }
+.status-dot { background: #aaa; border-radius: 50%; height: 7px; width: 7px; }
+.status-dot.status-sent { background: #1cc17d; }
+.status-dot.status-queued { background: #ff9f1a; }
+
+/* کارت رضایت‌سنجی زمینه مشکی و عدد بزرگ دارد. */
+.satisfaction-summary {
+  align-items: center;
+  background: linear-gradient(130deg, #121215, #020203);
+  border-radius: 18px;
+  color: #fff;
+  display: grid;
+  gap: 6px;
+  justify-items: center;
+  padding: 20px;
+}
+
+.satisfaction-summary > div:first-child { align-items: baseline; display: flex; gap: 5px; }
+.satisfaction-summary strong { font-size: 38px; }
+.satisfaction-summary span { color: #8e8e95; font-size: 9px; }
+.satisfaction-summary .stars { color: #ffc329; font-size: 17px; letter-spacing: 3px; }
+.satisfaction-summary p { color: #b6b6bc; font-size: 9px; margin: 0; }
+
+.section-heading { font-size: 11px; margin: 16px 2px 9px; }
+
+.review-list article { background: #fff; border-radius: 15px; padding: 12px; }
+.review-head { align-items: center; display: grid; gap: 9px; grid-template-columns: 38px 1fr auto; }
+.review-head > div { display: grid; gap: 3px; }
+.review-head strong { font-size: 9px; }
+.review-head small { color: var(--muted); font-size: 7px; }
+.review-head > span { color: #ff9d00; font-size: 11px; }
+.review-list p { color: #505057; font-size: 9px; line-height: 1.9; }
+.review-actions { align-items: center; border-top: 1px solid var(--line); display: flex; justify-content: space-between; padding-top: 8px; }
+.review-actions > button:first-child { background: #eee1ff; border-radius: 9px; color: var(--purple); font-size: 8px; padding: 8px 13px; }
+
+/* Hero گزارش با زمینه تیره و نمودار برند طراحی می‌شود. */
+.report-hero {
+  align-items: end;
+  background: linear-gradient(135deg, #111115, #030304);
+  border-radius: 20px;
+  color: #fff;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: 1fr 1.1fr;
+  min-height: 127px;
+  padding: 18px;
+}
+
+.report-hero > div { display: grid; gap: 8px; }
+.report-hero small { color: #a3a3aa; font-size: 8px; }
+.report-hero strong { font-size: 14px; line-height: 1.7; }
+
+/* سه شاخص اصلی در کارت‌های مساوی زیر نمودار قرار می‌گیرند. */
+.report-metrics { display: grid; gap: 7px; grid-template-columns: repeat(3, 1fr); margin: 8px 0; }
+.report-metrics div { background: #fff; border-radius: 13px; display: grid; gap: 5px; padding: 12px 7px; text-align: center; }
+.report-metrics span { color: var(--muted); font-size: 7px; }
+.report-metrics strong { font-size: 15px; }
+.report-metrics small { color: #12a76a; font-size: 7px; }
+
+.transaction-list { background: #fff; border-radius: 17px; margin-top: 8px; padding: 13px; }
+.transaction-list h2 { font-size: 10px; margin: 0 0 9px; }
+.transaction-list article { align-items: center; border-top: 1px solid var(--line); display: grid; gap: 9px; grid-template-columns: 37px 1fr auto; padding: 9px 0; }
+.transaction-list article > div { display: grid; gap: 4px; }
+.transaction-list strong { font-size: 9px; }
+.transaction-list small { color: var(--muted); font-size: 7px; }
+.transaction-list article > span:last-child { color: #16885b; font-size: 8px; }
+.transaction-icon { align-items: center; background: #e9e0ff; border-radius: 10px; color: var(--purple); display: flex; height: 35px; justify-content: center; }
+
+/* فهرست خدمات کارت‌هایی با نوار رنگ و مبلغ دارد. */
+.service-list { margin-top: 9px; }
+.service-list article { align-items: center; background: #fff; border-radius: 13px; display: grid; gap: 9px; grid-template-columns: 6px 1fr auto 34px; padding: 11px; }
+.service-color { border-radius: 999px; height: 34px; width: 5px; }
+.service-list article > div { display: grid; gap: 4px; }
+.service-list strong { font-size: 10px; }
+.service-list small { color: var(--muted); font-size: 8px; }
+.service-list article > span:nth-last-child(2) { font-size: 8px; }
+.compact-list article { grid-template-columns: 6px 1fr auto; }
+
+/* کارت پروفایل نام و ایمیل را در دو خط نشان می‌دهد. */
+.profile-title-card > div { display: grid; gap: 5px; }
+.profile-title-card strong { font-size: 14px; }
+.profile-title-card span { color: var(--muted); font-size: 8px; }
+
+/* کارت اشتراک مشکی با آیکن تاج/الماس و CTA صورتی است. */
+.pro-card {
+  align-items: center;
+  background: linear-gradient(115deg, #141416, #030304);
+  border-radius: 17px;
+  color: #fff;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 1fr auto;
+  margin-top: 8px;
+  padding: 13px;
+}
+
+.pro-card > div { display: grid; gap: 5px; }
+.pro-card small { color: #8b8b92; font-size: 7px; }
+.pro-card strong { font-size: 12px; }
+.pro-card > span { color: #c64cff; }
+.pro-card button { background: var(--gradient); border-radius: 9px; color: #fff; font-size: 8px; grid-column: 1 / -1; padding: 9px; }
+.profile-menu { margin-top: 8px; }
+
+/* تنظیمات پروفایل Toggle و ردیف اطلاعات را یکجا می‌گذارد. */
+.settings-panel { padding-bottom: 3px; }
+
+/* ردیف Toggle آیکن، Label و کلید را در سه ستون می‌چیند. */
+.toggle-row {
+  align-items: center;
+  background: #fff;
+  border-radius: 12px;
+  display: grid;
+  gap: 8px;
+  grid-template-columns: 30px 1fr auto;
+  min-height: 49px;
+  padding: 8px 10px;
+}
+
+.toggle-row + .toggle-row { margin-top: 7px; }
+.toggle-icon { align-items: center; color: #56565c; display: flex; justify-content: center; }
+.toggle-row strong { font-size: 9px; }
+
+/* کلید خاموش خاکستری و کلید روشن گرادیانی است. */
+.toggle {
+  background: #77777d;
+  border-radius: 999px;
+  height: 25px;
+  padding: 3px;
+  position: relative;
+  transition: background 180ms ease;
+  width: 47px;
+}
+
+.toggle span {
+  background: #fff;
+  border-radius: 50%;
+  display: block;
+  height: 19px;
+  transform: translateX(0);
+  transition: transform 180ms ease;
+  width: 19px;
+}
+
+.toggle.is-on { background: var(--gradient); }
+.toggle.is-on span { transform: translateX(-22px); }
+
+.danger-button { background: #ffe3ea; border-radius: 12px; color: #c50b3c; font-size: 9px; margin-top: 10px; min-height: 43px; width: 100%; }
+
+/* کادر جست‌وجو آیکن و Input بدون Border جدا دارد. */
+.search-box { align-items: center; background: #fff; border-radius: 13px; display: grid; gap: 8px; grid-template-columns: 25px 1fr; padding: 7px 10px; }
+.search-box > svg { color: #8a8a91; }
+.search-box input { background: transparent; border: 0; box-shadow: none !important; font-size: 10px; padding: 7px 0; }
+
+/* Hero ابزارهای عمومی آیکن گرادیانی و توضیح مرکزی دارد. */
+.tool-hero {
+  align-items: center;
+  background:
+    radial-gradient(circle at 50% 0, rgba(136, 31, 255, 0.28), transparent 42%),
+    linear-gradient(145deg, #151118, #030304);
+  border-radius: 22px;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 18px;
+  text-align: center;
+}
+
+.tool-hero > span { align-items: center; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12); border-radius: 18px; color: #d38aff; display: flex; height: 70px; justify-content: center; width: 70px; }
+.tool-hero h2 { font-size: 17px; margin: 13px 0 7px; }
+.tool-hero p { color: #b8b4bd; font-size: 9px; line-height: 2; margin: 0; max-width: 330px; }
+.tool-form-card { display: grid; gap: 9px; }
+
+.booking-link,
+.number-status { align-items: center; background: #f3e8ff; border: 1px dashed #a756e9; border-radius: 12px; color: #6520a1; display: flex; gap: 8px; justify-content: center; padding: 13px; }
+.booking-link span, .number-status strong { direction: ltr; font-size: 10px; }
+.number-status { flex-direction: column; }
+.number-status span { color: #77727d; font-size: 8px; }
+
+/* بسته‌های پیامکی کارت سفید، تخفیف و CTA گرادیانی دارند. */
+.package-list { display: grid; gap: 9px; margin-top: 9px; }
+.package-list article { background: #fff; border-radius: 16px; padding: 14px; }
+.package-list article > div { align-items: center; display: flex; justify-content: space-between; }
+.package-list strong { font-size: 12px; }
+.package-list span { background: #ffdbe9; border-radius: 999px; color: #d1115c; font-size: 7px; padding: 5px 8px; }
+.package-list p { color: var(--muted); font-size: 8px; }
+.package-list p b { color: #17171a; font-size: 20px; }
+.package-list button { background: var(--gradient); border-radius: 10px; color: #fff; font-size: 9px; min-height: 39px; width: 100%; }
+
+/* حالت خالی در مرکز کارت سفید قرار می‌گیرد. */
+.empty-state { align-items: center; background: #fff; border-radius: 17px; color: #77777e; display: flex; flex-direction: column; padding: 28px 15px; text-align: center; }
+.empty-state > span { color: #a341ff; }
+.empty-state strong { color: #2b2b2f; font-size: 11px; margin-top: 10px; }
+.empty-state p { font-size: 8px; line-height: 1.8; margin: 6px 0 0; }
+
+/* نوار پایین همیشه در محدوده پوسته ثابت است و Safe Area را پوشش می‌دهد. */
+.bottom-navigation {
+  align-items: center;
+  background: rgba(255, 255, 255, 0.97);
+  border-top: 1px solid #e6e6e8;
+  bottom: 0;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  left: 50%;
+  max-width: 480px;
+  min-height: 68px;
+  padding: 6px 9px max(6px, env(safe-area-inset-bottom));
+  position: fixed;
+  transform: translateX(-50%);
+  width: 100%;
+  z-index: 30;
+}
+
+.bottom-navigation > button:not(.nav-add) { align-items: center; background: transparent; color: #55555b; display: flex; flex-direction: column; font-size: 7px; gap: 3px; justify-content: center; min-height: 49px; }
+.bottom-navigation > button.is-active { color: var(--purple); }
+
+/* دکمه وسط نوار، دایره بزرگ با Border مشکی است. */
+.nav-add { align-items: center; background: #fff; border: 2px solid #18181b; border-radius: 50%; color: #17171a; display: flex; height: 43px; justify-content: center; margin: 0 auto; width: 43px; }
+
+/* پس‌زمینه Modal کل صفحه را تار و تیره می‌کند. */
+.modal-backdrop {
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.64);
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  left: 0;
+  padding: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 60;
+}
+
+/* Bottom Sheet در موبایل از پایین و در دسکتاپ به‌شکل پنجره مرکزی باز می‌شود. */
+.bottom-sheet {
+  background: #f3f3f4;
+  border-radius: 24px 24px 0 0;
+  box-shadow: 0 -18px 55px rgba(0, 0, 0, 0.24);
+  max-height: 88vh;
+  max-width: 480px;
+  overflow-y: auto;
+  padding: 8px 14px max(18px, env(safe-area-inset-bottom));
+  width: 100%;
+}
+
+/* دستگیره خاکستری به کاربر می‌گوید صفحه از پایین باز شده است. */
+.sheet-handle { background: #cfcfd3; border-radius: 999px; height: 4px; margin: 0 auto 8px; width: 44px; }
+.bottom-sheet > header { align-items: center; display: grid; grid-template-columns: 42px 1fr 42px; min-height: 45px; }
+.bottom-sheet > header h2 { font-size: 13px; grid-column: 2; margin: 0; text-align: center; }
+.bottom-sheet > header button { grid-column: 3; }
+.sheet-body { padding-top: 4px; }
+
+/* اکشن‌های سریع سه ردیف سفید با آیکن رنگی هستند. */
+.quick-actions-list { display: grid; gap: 8px; }
+.quick-actions-list > button { align-items: center; background: #fff; border-radius: 14px; color: #222226; display: grid; gap: 10px; grid-template-columns: 42px 1fr 22px; padding: 11px; text-align: right; }
+.quick-actions-list > button > span { align-items: center; background: #efe3ff; border-radius: 11px; color: var(--purple); display: flex; height: 42px; justify-content: center; }
+.quick-actions-list > button > div { display: grid; gap: 4px; }
+.quick-actions-list strong { font-size: 10px; }
+.quick-actions-list small { color: var(--muted); font-size: 8px; }
+
+/* فرم‌ها در یک ستون با فاصله یکسان چیده می‌شوند. */
+.form-stack { display: grid; gap: 9px; }
+.form-field { color: #66666d; display: grid; font-size: 8px; gap: 6px; }
+.form-field input, .form-field select, .form-field textarea { background: #fff; font-size: 10px; }
+.form-field input[type="color"] { height: 45px; padding: 5px; }
+.form-grid { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ghost-button { background: #dedee1; border-radius: 12px; color: #4b4b51; font-size: 10px; min-height: 45px; }
+
+/* فهرست اعلان با آیکن و زمان ساخته می‌شود. */
+.notification-list { display: grid; gap: 8px; }
+.notification-list article { align-items: center; background: #fff; border-radius: 13px; display: grid; gap: 9px; grid-template-columns: 39px 1fr; padding: 11px; }
+.notification-list article > span { align-items: center; background: #f0e4ff; border-radius: 10px; color: var(--purple); display: flex; height: 39px; justify-content: center; }
+.notification-list article > div { display: grid; gap: 4px; }
+.notification-list strong { font-size: 9px; }
+.notification-list small { color: var(--muted); font-size: 7px; }
+
+/* Toast پایین نوار محتوا و بالای Navigation ظاهر می‌شود. */
+.toast {
+  background: #18181b;
+  border: 1px solid #34343a;
+  border-radius: 12px;
+  bottom: 82px;
+  box-shadow: var(--shadow);
+  color: #fff;
+  font-size: 9px;
+  left: 50%;
+  max-width: 330px;
+  padding: 11px 16px;
+  position: fixed;
+  text-align: center;
+  transform: translateX(-50%);
+  width: calc(100% - 36px);
+  z-index: 90;
+}
+
+/* نمایشگر متوسط کارت‌ها را کمی بزرگ‌تر و خواناتر می‌کند. */
+@media (min-width: 600px) {
+  .app-shell,
+  .bottom-navigation,
+  .bottom-sheet {
+    max-width: 560px;
+  }
+
+  .feature-card { min-height: 78px; }
+  .promo-banner { min-height: 125px; }
+}
+
+/* در دسکتاپ پوسته عریض، شبکه چهارستونه و پنجره مرکزی فعال می‌شوند. */
+@media (min-width: 900px) {
+  .repo-app {
+    background: linear-gradient(140deg, #e8e5ec, #f9f8fa 50%, #e8e4ee);
+    padding: 30px;
+  }
+
+  .desktop-aura {
+    border-radius: 50%;
+    display: block;
+    height: 360px;
+    width: 360px;
+  }
+
+  .desktop-aura-one { background: #8e34ff; left: -100px; top: 80px; }
+  .desktop-aura-two { background: #ff268e; bottom: 30px; right: -120px; }
+
+  .app-shell {
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    border-radius: 28px;
+    box-shadow: 0 28px 90px rgba(32, 22, 48, 0.18);
+    max-width: 1120px;
+    min-height: calc(100vh - 60px);
+    overflow: hidden;
+  }
+
+  .app-content { min-height: calc(100vh - 60px); }
+  .dashboard-header { padding-left: 28px; padding-right: 28px; }
+  .promo-banner { grid-template-columns: 70px 1fr; margin-left: 28px; margin-right: 28px; min-height: 145px; padding: 24px; }
+  .promo-art { height: 66px; width: 66px; }
+  .promo-banner h1 { font-size: 21px; }
+  .promo-banner p { font-size: 10px; }
+  .owner-card { margin-left: 28px; margin-right: 28px; padding: 13px 16px; }
+
+  .feature-board {
+    gap: 10px;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding: 18px 28px 34px;
+  }
+
+  .feature-card { min-height: 86px; }
+  .feature-card.is-wide { grid-column: span 2; }
+
+  .light-page { padding-left: 28px; padding-right: 28px; }
+  .page-header { min-height: 68px; }
+  .quick-grid { max-width: 620px; }
+  .month-card { max-width: 620px; }
+  .calendar-page .day-summary,
+  .calendar-page .appointment-list { margin-right: 640px; }
+  .calendar-page .day-summary { margin-top: -371px; min-height: 105px; }
+  .calendar-page .appointment-list { margin-top: 10px; }
+
+  .customers-page .customer-overview { float: right; margin-left: 12px; width: 38%; }
+  .customers-page .filter-chips,
+  .customers-page .customer-list { margin-right: calc(38% + 12px); }
+  .customers-page::after { clear: both; content: ""; display: block; }
+
+  .messages-page > :not(.page-header):not(.underlined-tabs) { margin-left: auto; margin-right: auto; max-width: 760px; }
+  .reports-page .stack-list { grid-template-columns: repeat(2, 1fr); }
+  .report-metrics { max-width: 680px; }
+
+  .bottom-navigation {
+    border: 1px solid rgba(30, 30, 34, 0.1);
+    border-radius: 18px;
+    bottom: 42px;
+    box-shadow: 0 12px 35px rgba(20, 15, 28, 0.16);
+    max-width: 500px;
+  }
+
+  .bottom-sheet {
+    border-radius: 24px;
+    margin-bottom: 5vh;
+    max-width: 560px;
+    padding: 10px 20px 22px;
+  }
+
+  .modal-backdrop { align-items: center; }
+  .tool-page > *,
+  .profile-page > *,
+  .services-page > * { margin-left: auto; margin-right: auto; max-width: 760px; }
+}
+
+/* کاربران دارای تنظیم کاهش حرکت، انیمیشن‌ها و اسکرول نرم را دریافت نمی‌کنند. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,14 @@
+<!-- آیکن تب مرورگر از دایره گرادیانی و تیک سفید برند Repo Time ساخته شده است. -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- گرادیان بنفش تا صورتی با رنگ‌های اصلی رابط هماهنگ است. -->
+  <defs>
+    <linearGradient id="repo-time-gradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7514ff"/>
+      <stop offset="1" stop-color="#ec078b"/>
+    </linearGradient>
+  </defs>
+  <!-- دایره اصلی روی تب کوچک نیز فرم خوانا دارد. -->
+  <circle cx="32" cy="32" r="29" fill="url(#repo-time-gradient)"/>
+  <!-- تیک سفید نشانه ثبت موفق نوبت است. -->
+  <path d="m18 32 9 9 19-21" fill="none" stroke="#fff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
